@@ -22,4 +22,132 @@
  *   implementing the solutions.
  */
 
-module.exports = {};
+/**
+ * Question 1: Account Management Function
+ *
+ * Objective:
+ * Create a function called createAccount that can be called either with new or without.
+ * This function returns an account object with deposit, withdraw, and checkAccount methods.
+ *
+ * Details:
+ * - The createAccount function takes two parameters: accountName (string), openingBalance (number).
+ * - It returns an object with three methods: deposit, withdraw, and checkAccount.
+ * - Both deposit and withdraw methods accept a positive number as a parameter.
+ *   - If the withdrawal amount is more than the current balance, it returns "Withdraw over balance".
+ *   - Otherwise, it returns "OK".
+ * - The checkAccount method returns an object with two attributes: transactions (an array) and balance.
+ *   - Each transaction in the transactions array is an object with two attributes: action ("open", "deposit", "withdraw") and amount.
+ *
+ */
+function createAccount(accountName, openingBalance) {
+  // your implementation here
+}
+
+/**
+ * Question 2: Using Getters and Setters in Function Generated Objects
+ *
+ * Task:
+ * Implement a function called `Person` that initializes an object with private properties for
+ * `name` and `age`. Use getters and setters to provide access to these properties.
+ * - The `setName` setter should capitalize the first letter of the name before storing it.
+ * - The `setAge` setter should validate that the age is a valid number between 0 and 120.
+ * If the validation fails, do not update the age and console.log an error message: "Invalid age provided".
+ *
+ * Implementation:
+ */
+function Person(initialName, initialAge) {
+  // your implementation here
+}
+
+/**
+ * Question 3: Using Classes in JavaScript
+ *
+ * Objective:
+ * Understand and apply fundamental Object-Oriented Programming concepts in JavaScript using classes,
+ * including class definitions, inheritance, and polymorphism.
+ *
+ * Part A: Creating a Car Class
+ * Define a Car class with the following specifications:
+ * - Properties:
+ *   - make (string)
+ *   - model (string)
+ *   - year (number)
+ * - Method:
+ *   - getInfo(): Returns a string containing the car's make, model, and year.
+ *
+ * Part B: Inheriting from Car to Create an ElectricCar Class
+ * Extend the Car class to create an ElectricCar class with the following additions:
+ * - Property:
+ *   - batteryLevel (number): Represents the percentage of battery level.
+ * - Method:
+ *   - getBatteryInfo(): Returns a string stating the battery level.
+ *
+ * Part C: Implementing Polymorphism
+ * Override the getInfo() method in the ElectricCar class to include battery level information
+ * along with the car's make, model, and year.
+ *
+ * [hint]: please check the test cases to find out the expected output string format
+ * Implementation:
+ */
+
+class Car {
+  // your implementation here
+}
+
+class ElectricCar extends Car {
+  // your implementation here
+}
+
+/**
+ * Question 4: Extending Prototype with JSON Operations
+ *
+ * Task:
+ * Extend the Array prototype in JavaScript to include two custom methods:
+ * - serialize(): Convert the array to a JSON string.
+ * - deserialize(json): Populate the array with elements from a JSON string.
+ *
+ * Guidelines:
+ * Implement these methods directly on the Array.prototype to make them available on all array instances.
+ */
+
+// Extending Array.prototype to include serialize method
+Array.prototype.serialize = function () {
+  // your implementation here
+};
+
+// Extending Array.prototype to include deserialize method
+Array.prototype.deserialize = function (json) {
+  // your implementation here
+};
+
+/**
+ * Question 5: Shopping Cart Management with Direct Access Getters
+ *
+ * Implement a function called createShoppingCart which initializes and returns an object representing a shopping cart.
+ * This object includes methods for adding items, removing items, and getters for totalPrice and itemNumber.
+ *
+ * Details:
+ * - addItem(id, name, price): Adds an item to the cart or updates its quantity if it already exists.
+ * - removeItem(id): Removes an item from the cart based on its id.
+ * - check(): Returns an object with the total number of items, the total price, and a detailed list of items (including id, name, price, and quantity).
+ * - Getters:
+ *   - totalPrice: Returns the total price of all items in the cart.
+ *   - itemNumber: Returns the total number of items in the cart.
+ *
+ * Initial state of the shopping cart should be empty. If an added item already exists, their quantities should be merged.
+ * Removing an item should decrement its quantity, and items with a quantity of zero should be removed.
+ * Assume all function calls are valid and one id always maps to the same product name and price.
+ */
+
+function createShoppingCart() {
+  // your implementation here
+}
+
+module.exports = {
+  Car,
+  ElectricCar,
+  createAccount,
+  Person,
+  Array,
+  createShoppingCart,
+};
