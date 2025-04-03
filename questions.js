@@ -40,8 +40,37 @@
  *
  */
 function createAccount(accountName, openingBalance) {
-  // your implementation here
+  if (!new.target) {
+    return new createAccount(accountName, openingBalance);
+  }
+
+  let balance = openingBalance;
+  let transactions = [{ action: "open", amount: openingBalance }];
+
+  return {
+    deposit(amount) {
+      if (typeof amount !== "number" || amount <= 0) return "Invalid amount";
+      balance += amount;
+      transactions.push({ action: "deposit", amount });
+      return "OK";
+    },
+    withdraw(amount) {
+      if (typeof amount !== "number" || amount <= 0) return "Invalid amount";
+      if (amount > balance) return "Withdraw over balance";
+      balance -= amount;
+      transactions.push({ action: "withdraw", amount });
+      return "OK";
+    },
+    checkAccount() {
+      return {
+        balance,
+        transactions
+      };
+    }
+  };
 }
+
+
 
 /**
  * Question 2: Using Getters and Setters in Function Generated Objects
@@ -55,9 +84,47 @@ function createAccount(accountName, openingBalance) {
  *
  * Implementation:
  */
+
 function Person(initialName, initialAge) {
-  // your implementation here
+  let name = capitalizeName(initialName);
+  let age = initialAge;
+
+  function capitalizeName(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
+
+  return {
+    get getName() {
+      return name;
+    },
+
+
+
+    set setName(newName) {
+      name = capitalizeName(newName);
+    },
+
+    get getAge() {
+      return age;
+    },
+
+    set setAge(newAge) {
+      if (typeof newAge === "number" && newAge >= 0 && newAge <= 120) {
+        age = newAge;
+      } else {
+        console.log("Invalid age provided");
+      }
+    }
+  };
 }
+
+
+
+
+
+
+
+
 
 /**
  * Question 3: Using Classes in JavaScript
@@ -91,11 +158,33 @@ function Person(initialName, initialAge) {
  */
 
 class Car {
-  // your implementation here
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+
+  getInfo() {
+    return `${this.make} ${this.model} ${this.year}`;
+  }
 }
 
 class ElectricCar extends Car {
-  // your implementation here
+  constructor(make, model, year, batteryLevel) {
+    super(make, model, year);
+    this.batteryLevel = batteryLevel;
+  }
+
+
+
+  
+  getBatteryInfo() {
+    return `Battery level at ${this.batteryLevel}%`;
+  }
+
+  getInfo() {
+    return `${super.getInfo()} with ${this.batteryLevel}% battery`;
+  }
 }
 
 /**
@@ -110,14 +199,16 @@ class ElectricCar extends Car {
  * Implement these methods directly on the Array.prototype to make them available on all array instances.
  */
 
+
 // Extending Array.prototype to include serialize method
 Array.prototype.serialize = function () {
-  // your implementation here
+  return JSON.stringify(this);
+
 };
 
 // Extending Array.prototype to include deserialize method
 Array.prototype.deserialize = function (json) {
-  // your implementation here
+  this.splice(0, this.length, ...JSON.parse(json));
 };
 
 /**
@@ -140,8 +231,44 @@ Array.prototype.deserialize = function (json) {
  */
 
 function createShoppingCart() {
-  // your implementation here
+  const items = [];
+
+  return {
+    addItem(id, name, price) {
+      const item = items.find(item => item.id === id);
+      item
+        ? item.quantity += 1
+        : items.push({ id, name, price, quantity: 1 });
+    },
+
+    removeItem(id) {
+      const index = items.findIndex(item => item.id === id);
+      if (index !== -1) {
+        items[index].quantity -= 1;
+        if (items[index].quantity === 0) {
+          items.splice(index, 1);
+        }
+      }
+    },
+
+    get totalPrice() {
+      return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    },
+
+    get itemNumber() {
+      return items.reduce((sum, item) => sum + item.quantity, 0);
+    },
+
+    check() {
+      return {
+        items: [...items], // spread for shallow copy
+        itemNumber: this.itemNumber,
+        total: this.totalPrice,
+      };
+    }
+  };
 }
+
 
 module.exports = {
   Car,
